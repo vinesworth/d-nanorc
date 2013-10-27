@@ -21,7 +21,7 @@ color brightgreen "(0[bB][01_]*)(L[uU]?|[uU]L?)?"
 ## Decimal float literals
 color brightblue "[0-9][0-9_]*\.([0-9][0-9_]*)([eE][+-]?([0-9][0-9_]*))?[fFL]?i?"
 color brightblue "[0-9][0-9_]*([eE][+-]?([0-9][0-9_]*))[fFL]?i?"
-color brightblue "\.([0-9][0-9_]*)([eE][+-]?([0-9][0-9_]*))?[fFL]?i?"
+color brightblue "[^.]\.([0-9][0-9_]*)([eE][+-]?([0-9][0-9_]*))?[fFL]?i?"
 color brightblue "[0-9][0-9_]*([fFL]?i|[fF])"
 
 ## Identifiers
@@ -54,10 +54,10 @@ color brightwhite "\<(__FILE__|__MODULE__|__LINE__|__FUNCTION__|__PRETTY_FUNCTIO
 color ,red "\<(delete|deprecated|typedef|volatile)\>"
 
 ## Primitive types
-color green "\<(bool|byte|cdouble|cent|cfloat|char|creal|dchar|double|float|idouble|ifloat|int|ireal|long|real|short|ubyte|ucent|uint|ulong|ushort|void|wchar)\>"
+color cyan "\<(bool|byte|cdouble|cent|cfloat|char|creal|dchar|double|float|idouble|ifloat|int|ireal|long|real|short|ubyte|ucent|uint|ulong|ushort|void|wchar)\>"
 
 ## Globally defined symbols
-color green "\<(string|wstring|dstring|size_t|ptrdiff_t)\>"
+color cyan "\<(string|wstring|dstring|size_t|ptrdiff_t)\>"
 
 ## Special tokens
 color ,blue "\<(__DATE__|__EOF__|__TIME__|__TIMESTAMP__|__VENDOR__|__VERSION__)\>"
