@@ -1,0 +1,101 @@
+## D syntax highlighting for GNU nano
+##
+## Author: Andrei Vinokurov
+## Based on D lexer specification (http://dlang.org/lex)
+
+syntax "d" "\.(d(i|d)?)$"
+
+## Operators and punctuation
+color green "(\*|/|%|\+|-|>>|<<|>>>|&|\^(\^)?|\||~)?="
+color green "\.\.(\.)?|!|\*|&|~|\(|\)|\[|\]|\\|/|\+|-|%|<|>|\?|:|;"
+
+## Octal integer literals are deprecated
+color ,red "(0[0-7_]*)(L[uU]?|[uU]L?)?"
+
+## Decimal integer literals
+color brightyellow "([0-9]|[1-9][0-9_]*)(L[uU]?|[uU]L?)?"
+
+## Binary integer literals
+color brightgreen "(0[bB][01_]*)(L[uU]?|[uU]L?)?"
+
+## Decimal float literals
+color brightblue "[0-9][0-9_]*\.([0-9][0-9_]*)([eE][+-]?([0-9][0-9_]*))?[fFL]?i?"
+color brightblue "[0-9][0-9_]*([eE][+-]?([0-9][0-9_]*))[fFL]?i?"
+color brightblue "\.([0-9][0-9_]*)([eE][+-]?([0-9][0-9_]*))?[fFL]?i?"
+color brightblue "[0-9][0-9_]*([fFL]?i|[fF])"
+
+## Identifiers
+color white "\<[[:alpha:]_][[:alnum:]_]*\>"
+
+## Hexadecimal integer literals
+color brightcyan "(0[xX]([0-9a-fA-F][0-9a-fA-F_]*|[0-9a-fA-F_]*[0-9a-fA-F]))(L[uU]?|[uU]L?)?"
+
+## Hexadecimal float literals
+color blue "0[xX]([0-9a-fA-F][0-9a-fA-F_]*|[0-9a-fA-F_]*[0-9a-fA-F])(\.[0-9a-fA-F][0-9a-fA-F_]*|[0-9a-fA-F_]*[0-9a-fA-F])?[pP][+-]?([0-9][0-9_]*)[fFL]?i?"
+color blue "0[xX]\.([0-9a-fA-F][0-9a-fA-F_]*|[0-9a-fA-F_]*[0-9a-fA-F])[pP][+-]?([0-9][0-9_]*)[fFL]?i?"
+
+
+## Character literals
+color brightmagenta "'([^\']|\\(['"?\abfnrtv]|x[[:xdigit:]]{2}|[0-7]{1,3}|u[[:xdigit:]]{4}|U[[:xdigit:]]{8}|&.*;))'"
+
+## Keywords
+## a-e
+color brightwhite "\<(abstract|alias|align|asm|assert|auto|body|break|case|cast|catch|class|const|continue|debug|default|delegate|do|else|enum|export|extern)\>"
+## f-l
+color brightwhite "\<(false|final|finally|for|foreach|foreach_reverse|function|goto|if|immutable|import|in|inout|interface|invariant|is|lazy)\>"
+## m-r
+color brightwhite "\<(macro|mixin|module|new|nothrow|null|out|override|package|pragma|private|protected|public|pure|ref|return)\>"
+## s-w
+color brightwhite "\<(scope|shared|static|struct|super|switch|synchronized|template|this|throw|true|try|typeid|typeof|union|unittest|version|while|with)\>"
+## __
+color brightwhite "\<(__FILE__|__MODULE__|__LINE__|__FUNCTION__|__PRETTY_FUNCTION__|__gshared|__traits|__vector|__parameters)\>"
+
+## Deprecated keywords
+color ,red "\<(delete|deprecated|typedef|volatile)\>"
+
+## Primitive types
+color green "\<(bool|byte|cdouble|cent|cfloat|char|creal|dchar|double|float|idouble|ifloat|int|ireal|long|real|short|ubyte|ucent|uint|ulong|ushort|void|wchar)\>"
+
+## Globally defined symbols
+color green "\<(string|wstring|dstring|size_t|ptrdiff_t)\>"
+
+## Special tokens
+color ,blue "\<(__DATE__|__EOF__|__TIME__|__TIMESTAMP__|__VENDOR__|__VERSION__)\>"
+
+
+## Special directives, etc.
+color magenta "\\s *#\\s *"
+
+## String literals
+## TODO: multiline backtick and doublequote string. (Unlikely possible at all with nano.)
+### DoubleQuotedString
+color yellow ""([^"\]|\\(['"?\abfnrtv]|x[[:xdigit:]]{2}|[0-7]{1,3}|u[[:xdigit:]]{4}|U[[:xdigit:]]{8}|&.*;)))*""
+ 
+### WysiwygString
+color yellow start="r"" end="""
+color yellow "`[^`]*`"
+
+### HexString
+color ,yellow "x"([[:space:]]*[[:xdigit:]][[:space:]]*[[:xdigit:]])*[[:space:]]*""
+
+### DelimitedString
+color yellow "q"\(.*\)""
+color yellow "q"\{.*\}""
+color yellow "q"\[.*\]""
+color yellow "q"<.*>""
+color yellow start="q"[^({[<"][^"]*$" end="^[^"]+""
+color yellow "q"([^({[<"]).*\1""
+
+### TokenString
+### True token strings require nesting, so, again, they can't be implemented accurately here.
+### At the same time, the intended purpose of token strings makes it questionable to highlight them as strings at all.
+## color ,magenta start="q\{" end="\}"
+
+## Comments
+## NB: true nested comments are impossible to implement with plain regex
+color brightblack "//.*"
+color brightblack start="/\*" end="\*/"
+color brightblack start="/\+" end="\+/"
+
+## Trailing whitespace
+color ,green "[[:space:]]+$"
