@@ -93,6 +93,7 @@ color yellow "q"([^({[<"]).*\1""
 
 ## Comments
 ## NB: true nested comments are impossible to implement with plain regex
+comment "//"
 color brightblack "//.*"
 color brightblack start="/\*" end="\*/"
 color brightblack start="/\+" end="\+/"
